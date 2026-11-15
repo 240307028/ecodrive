@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoDrive - Yönetici Paneli</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:"class",theme:{extend:{colors:{surface:"#0b1326",primary:"#4edea3",secondary:"#4cd7f6",tertiary:"#ffb95f","on-surface":"#dae2fd","on-surface-variant":"#bbcabf","surface-container":"#171f33","surface-container-low":"#131b2e","surface-container-lowest":"#060e20","surface-container-high":"#222a3d"},fontFamily:{headline:["Plus Jakarta Sans"],body:["Inter"]}}}};</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>body{margin:0}.field{width:100%;box-sizing:border-box;background:#060e20;color:#dae2fd;padding:.7rem .85rem;border-radius:.5rem;outline:none}.field:focus{box-shadow:0 0 0 1px #4edea3}.panel{border-radius:.75rem;background:#171f33;padding:1.5rem}</style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen">
+  <header class="h-16 px-6 md:px-10 flex items-center justify-between bg-surface-container-lowest border-b border-surface-container-high">
+    <a href="anasayfa.html" class="font-headline text-lg font-bold text-primary">EcoDrive Yönetim</a>
+    <button class="px-3 py-2 rounded-lg bg-surface-container-high text-sm" onclick="logoutAdmin()">Çıkış Yap</button>
+  </header>
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <section id="loginPanel" class="max-w-md mx-auto panel">
+      <div class="text-center mb-6"><span class="text-4xl">🛡️</span><h1 class="font-headline text-2xl font-bold mt-2">Admin Girişi</h1><p class="text-sm text-on-surface-variant mt-2">Yönetim araçlarına yalnızca yetkili kullanıcılar erişebilir.</p></div>
+      <form class="space-y-4" onsubmit="adminLogin(event)">
+        <label class="block text-sm">Ad Soyad<input id="adminName" class="field mt-1" autocomplete="username" required></label>
+        <label class="block text-sm">Şifre<input id="adminPassword" class="field mt-1" type="password" required></label>
+        <button class="w-full py-3 rounded-lg bg-primary text-surface font-semibold" type="submit">Yönetim Paneline Gir</button>
+      </form>
+      <p id="loginMessage" class="text-tertiary text-sm mt-4 text-center" role="status"></p>
+    </section>
+    <section id="dashboard" class="hidden space-y-6">
+      <div><h1 class="font-headline text-3xl font-bold">Yönetim Merkezi</h1><p class="text-on-surface-variant mt-1">Hesaplama verilerini ve kullanıcı istatistiklerini yönetin.</p></div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="admin-veri.html" class="panel hover:bg-surface-container-high"><span class="text-3xl">⚙️</span><h2 class="font-headline font-bold mt-3">Hesaplama Verileri</h2><p class="text-sm text-on-surface-variant mt-1">CO₂, yakıt fiyatı, tüketim ve EV katsayıları.</p></a>
+        <a href="admin-kullanicilar.html" class="panel hover:bg-surface-container-high"><span class="text-3xl">👥</span><h2 class="font-headline font-bold mt-3">Kullanıcı Görüntüleme</h2><p class="text-sm text-on-surface-variant mt-1">Kullanıcı, analiz ve yorum sayılarını inceleyin.</p></a>
+      </div>
+    </section>
+  </main>
+  <script>
+    var ADMIN_NAME="çağlar serdar sak",ADMIN_PASSWORD="123456";
+    function isAdmin(){return localStorage.getItem("ecodriveAdminAuthenticated")==="true"}
+    function showDashboard(){document.getElementById("loginPanel").classList.toggle("hidden",isAdmin());document.getElementById("dashboard").classList.toggle("hidden",!isAdmin())}
+    function adminLogin(event){event.preventDefault();var name=document.getElementById("adminName").value.trim().toLocaleLowerCase("tr-TR"),password=document.getElementById("adminPassword").value;if(name===ADMIN_NAME&&password===ADMIN_PASSWORD){localStorage.setItem("ecodriveAdminAuthenticated","true");showDashboard()}else document.getElementById("loginMessage").textContent="Admin adı veya şifre hatalı."}
+    function logoutAdmin(){localStorage.removeItem("ecodriveAdminAuthenticated");showDashboard()}
+    showDashboard();
+  </script>
+</body>
+</html>

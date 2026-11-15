@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EcoDrive kullanıcı giriş ve kayıt sayfası">
+  <title>EcoDrive - Kullanıcı Girişi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:"class",theme:{extend:{colors:{surface:"#0b1326",background:"#0b1326",primary:"#4edea3","primary-container":"#10b981",secondary:"#4cd7f6",outline:"#86948a","on-surface":"#dae2fd","on-surface-variant":"#bbcabf","surface-container":"#171f33","surface-container-low":"#131b2e","surface-container-lowest":"#060e20","surface-container-high":"#222a3d","surface-container-highest":"#2d3449"},spacing:{margin:"1rem","margin-desktop":"2rem","space-md":"1rem","space-xl":"2rem"},fontFamily:{headline:["Plus Jakarta Sans"],body:["Inter"]}}}};</script>
+  <style>
+    @layer base{html,body{margin:0;padding:0}body{overscroll-behavior:none}}::-webkit-scrollbar{display:none}
+    .field{width:100%;box-sizing:border-box;background:#060e20;color:#dae2fd;padding:.75rem 1rem;border-radius:.5rem;outline:none}.field:focus{box-shadow:0 0 0 1px #4edea3}
+  </style>
+  <style>
+    html:not(.dark) body{background:#f4f8f6!important;color:#18302a!important}
+    html:not(.dark) .bg-surface-container-lowest{background:#fff!important}
+    html:not(.dark) .bg-surface-container-low{background:#e8f0ec!important}
+    html:not(.dark) .bg-surface-container{background:#fff!important}
+    html:not(.dark) .text-on-surface{color:#18302a!important}
+    html:not(.dark) .text-on-surface-variant{color:#52665d!important}
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen flex flex-col">
+  <header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]"><div class="h-16 px-margin-desktop flex items-center justify-between gap-space-md">
+    <div class="flex items-center gap-space-md shrink-0"><div class="flex gap-2"><a class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary" href="anasayfa.html" title="Ana Sayfa"><span class="material-symbols-outlined">home</span></a><a class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container-high text-primary" href="kullanici-giris" title="Kullanıcı Girişi"><span class="material-symbols-outlined">account_circle</span></a></div><div class="flex items-center gap-2"><strong class="font-headline text-lg text-primary">EcoDrive</strong><span class="hidden xl:inline text-outline">|</span><span class="hidden xl:inline text-sm text-on-surface-variant">Sürdürülebilir Ulaşım Karar Destek Sistemi</span></div></div>
+    <nav class="hidden lg:flex items-center gap-1 text-sm"><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low" href="anasayfa.html">Ana Sayfa</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low" href="hesaplama.html">Hesaplama ve Maliyet</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low" href="hakkimizda.html">Hakkımızda</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low" href="kullanici.html">Kullanıcı Paneli</a></nav>
+    <div class="flex items-center gap-2"><button id="themeToggle" class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant" onclick="toggleTheme()" type="button" aria-label="Gündüz moduna geç" title="Gündüz moduna geç"><span class="material-symbols-outlined text-lg">dark_mode</span></button><div class="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-container-lowest" aria-label="Araç ve sürdürülebilirlik"><span class="material-symbols-outlined text-primary text-lg">directions_car</span><span class="material-symbols-outlined text-secondary text-lg">eco</span></div></div>
+  </div></header>
+  <main class="pt-16 flex-1 flex items-center justify-center px-4 py-12"><section class="w-full max-w-md bg-surface-container rounded-xl p-6 sm:p-8 shadow-2xl">
+    <div class="text-center mb-6"><span class="material-symbols-outlined text-primary text-5xl">account_circle</span><h1 class="font-headline text-2xl font-bold mt-2">EcoDrive hesabınız</h1><p class="text-sm text-on-surface-variant mt-2">Hesaplamalarınızı kaydedin, geçmiş analizlerinize her yerden ulaşın.</p></div>
+    <div class="grid grid-cols-2 bg-surface-container-lowest p-1 rounded-lg mb-6"><button id="loginTab" class="py-2 rounded-lg text-primary bg-surface-container-high font-semibold" onclick="switchMode('login')" type="button">Giriş Yap</button><button id="registerTab" class="py-2 rounded-lg text-on-surface-variant" onclick="switchMode('register')" type="button">Kayıt Ol</button></div>
+    <form class="flex flex-col gap-4" onsubmit="submitAuth(event)">
+      <label id="nameField" class="hidden text-sm text-on-surface-variant">Ad Soyad<input id="nameInput" class="field mt-1" placeholder="Adınız Soyadınız"></label>
+      <label class="text-sm text-on-surface-variant">E-posta<input id="emailInput" class="field mt-1" type="email" placeholder="ad@ornek.com" required></label>
+      <label class="text-sm text-on-surface-variant">Şifre<input id="passwordInput" class="field mt-1" type="password" placeholder="En az 6 karakter" minlength="6" required></label>
+      <button id="submitButton" class="py-3 rounded-lg bg-primary text-surface font-semibold" type="submit">Sisteme Giriş Yap</button>
+    </form>
+    <p id="authMessage" class="hidden text-center text-sm font-semibold mt-4" role="status"></p>
+  </section></main>
+  <footer class="bg-surface-container-lowest"><div class="px-margin-desktop py-space-xl text-center text-sm text-outline">EcoDrive • Sürdürülebilir ulaşım karar destek sistemi</div></footer>
+  <script>
+    function applyTheme(){var light=localStorage.getItem("ecodriveTheme")==="light";document.documentElement.classList.toggle("dark",!light);var button=document.getElementById("themeToggle");if(button){button.querySelector("span").textContent=light?"light_mode":"dark_mode";button.setAttribute("aria-label",light?"Gece moduna geç":"Gündüz moduna geç");button.title=light?"Gece moduna geç":"Gündüz moduna geç"}}
+    function toggleTheme(){localStorage.setItem("ecodriveTheme",localStorage.getItem("ecodriveTheme")==="light"?"dark":"light");applyTheme()}
+    applyTheme();
+    var mode="login";
+    function switchMode(nextMode){mode=nextMode;var login=document.getElementById("loginTab"),register=document.getElementById("registerTab"),name=document.getElementById("nameField"),submit=document.getElementById("submitButton");var active="py-2 rounded-lg text-primary bg-surface-container-high font-semibold",inactive="py-2 rounded-lg text-on-surface-variant";login.className=mode==="login"?active:inactive;register.className=mode==="register"?active:inactive;name.classList.toggle("hidden",mode==="login");submit.textContent=mode==="login"?"Sisteme Giriş Yap":"Hesap Oluştur";}
+    function readUsers(){return JSON.parse(localStorage.getItem("ecodriveUsers")||"[]")}
+    function submitAuth(event){event.preventDefault();var email=document.getElementById("emailInput").value.trim().toLowerCase(),password=document.getElementById("passwordInput").value,name=document.getElementById("nameInput").value.trim(),users=readUsers(),user=users.find(function(item){return item.email===email}),message=document.getElementById("authMessage");if(mode==="register"){if(!name){return showMessage("Lütfen adınızı ve soyadınızı girin.","text-tertiary")}if(user){return showMessage("Bu e-posta ile kayıtlı bir hesap zaten var.","text-tertiary")}user={name:name,email:email,password:password,history:[]};users.push(user);localStorage.setItem("ecodriveUsers",JSON.stringify(users))}else if(!user||user.password!==password){return showMessage("E-posta veya şifre hatalı.","text-tertiary")}localStorage.setItem("ecodriveCurrentUser",email);localStorage.setItem("ecodriveAuthenticated","true");showMessage("Giriş başarılı. Yönlendiriliyorsunuz.","text-primary");setTimeout(function(){var next=new URLSearchParams(window.location.search).get("next");window.location.href=next==="hesaplama"?"hesaplama.html":"kullanici.html"},500)}
+    function showMessage(text,className){var message=document.getElementById("authMessage");message.textContent=text;message.className="text-center text-sm font-semibold mt-4 "+className}
+  </script>
+</body>
+</html>

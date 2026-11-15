@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EcoDrive sürdürülebilir ulaşım karar destek sistemi">
+  <title>EcoDrive - Sürdürülebilir Ulaşım Karar Destek Sistemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    html:not(.dark) body { background: #f4f8f6 !important; color: #18302a !important; }
+    html:not(.dark) .bg-background { background: #f4f8f6 !important; }
+    html:not(.dark) .bg-surface-container-lowest { background: #ffffff !important; }
+    html:not(.dark) .bg-surface-container-low { background: #e8f0ec !important; }
+    html:not(.dark) .bg-surface-container,
+    html:not(.dark) .bg-surface-container-high { background: #dce9e2 !important; }
+    html:not(.dark) .text-on-surface { color: #18302a !important; }
+    html:not(.dark) .text-on-surface-variant,
+    html:not(.dark) .text-outline { color: #52665d !important; }
+    html:not(.dark) .input-field { background: #ffffff; color: #18302a; }
+    #themeToggle { cursor: pointer; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            outline: "#86948a", "on-surface": "#dae2fd", secondary: "#4cd7f6",
+            "outline-variant": "#3c4a42", "on-surface-variant": "#bbcabf",
+            "surface-dim": "#0b1326", background: "#0b1326", "surface-container": "#171f33",
+            "secondary-container": "#03b5d3", "surface-container-lowest": "#060e20",
+            "surface-bright": "#31394d", "surface-variant": "#2d3449",
+            "surface-container-high": "#222a3d", "surface-container-low": "#131b2e",
+            "surface-container-highest": "#2d3449", "primary": "#4edea3",
+            "primary-container": "#10b981", "surface-tint": "#4edea3",
+            "tertiary": "#ffb95f", "on-primary": "#003824", "on-surface": "#dae2fd"
+          },
+          borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
+          spacing: { margin: "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2rem" },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans"], body: ["Inter"], sans: ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex flex-col">
+  <header class="fixed top-0 left-0 w-full z-50 bg-background/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]">
+    <div class="h-16 w-full px-margin-desktop flex items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-md shrink-0">
+        <div class="flex items-center gap-space-xs">
+          <a class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" href="anasayfa.html" title="Ana Sayfa">
+            <span class="material-symbols-outlined text-lg">home</span>
+          </a>
+          <a class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" href="kullanici-giris" title="Profil ve Giriş">
+            <span class="material-symbols-outlined text-lg">account_circle</span>
+          </a>
+        </div>
+        <div class="flex items-center gap-space-xs">
+          <span class="font-headline text-lg tracking-tight text-primary font-bold">EcoDrive</span>
+          <span class="hidden xl:inline-block text-outline-variant">|</span>
+          <span class="hidden xl:inline-block text-sm font-medium text-on-surface-variant tracking-wide">Sürdürülebilir Ulaşım Karar Destek Sistemi</span>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-space-xs" aria-label="Ana navigasyon">
+        <a aria-current="page" class="px-3 py-1.5 rounded-lg bg-surface-container-high text-primary font-semibold text-sm" href="#">Ana Sayfa</a>
+        <a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors text-sm" href="hesaplama.html">Hesaplama ve Maliyet</a>
+        <a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors text-sm" href="hakkimizda.html">Hakkımızda</a>
+        <a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors text-sm" href="kullanici.html">Kullanıcı Paneli</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-primary transition-colors" onclick="toggleTheme()" type="button" aria-label="Gündüz moduna geç" title="Gündüz moduna geç">
+          <span class="material-symbols-outlined text-lg">dark_mode</span>
+        </button>
+        <div class="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-container-lowest" aria-label="Araç ve sürdürülebilirlik">
+        <span class="material-symbols-outlined text-primary text-lg">directions_car</span>
+        <span class="material-symbols-outlined text-secondary text-lg">eco</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-16 flex-1">
+    <section class="relative w-full -mt-16 overflow-hidden">
+      <div class="w-full min-h-[580px] bg-cover bg-center flex flex-col justify-end relative" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDP-THWY826lnSJmczyziIkphQ7x0GIYcGLqoSwCcTp8xaEIii_XSlFy7bsS1sTdbjRZ89WislMv0Qw-QfCXW45-ypUZYiE-0CzGKzhqqMF6ba6jeqMZyvrCgekx1lXZ5AyaSlxd4_-fGfRRIwpthyYh2DzWcHR4Rle1iD_J79BrR9j0d2CLPip69X2q1CIyRC4kBpSj6wdSTWeZoLj6UibQZVVBu3ciSar7uEzKea1')">
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent"></div>
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-margin md:px-margin-desktop pt-32 pb-20 flex flex-col gap-4">
+          <div class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-surface-container-high/80 backdrop-blur-sm text-secondary">
+            <span class="material-symbols-outlined text-base">eco</span>
+            <span class="text-xs tracking-wider uppercase">Sürdürülebilir Ulaşım Zekası</span>
+          </div>
+          <h1 id="homeContentTitle" class="font-headline text-4xl lg:text-6xl text-on-surface max-w-4xl tracking-tight leading-tight">EcoDrive <span class="text-primary font-normal">–</span> Sürdürülebilir Ulaşım Karar Destek Sistemi</h1>
+          <p id="homeContentDescription" class="text-lg text-on-surface-variant max-w-2xl">Aracınızın gerçek operasyonel maliyetini ve karbon ayak izini hesaplayın, geleceğe bilinçli adımlarla ilerleyin.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="hesaplama" class="relative z-20 w-full max-w-6xl mx-auto px-margin md:px-margin-desktop -mt-10 pb-20">
+      <div class="w-full bg-surface-container-low rounded-xl shadow-2xl p-6 sm:p-8 lg:p-12 flex flex-col gap-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2">
+          <div><span class="text-xs text-primary tracking-widest uppercase">Girdi Paneli</span><h2 class="font-headline text-xl text-on-surface">Araç Profil ve Kullanım Verileri</h2></div>
+          <div class="flex items-center gap-2 text-on-surface-variant text-sm bg-surface-container px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-primary text-base">verified</span>doğrulanmış emisyon katsayıları</div>
+        </div>
+        <form class="flex flex-col gap-8" id="vehicleCalcForm" onsubmit="saveVehicleAndContinue(event);">
+          <div class="flex flex-col gap-3">
+            <label class="font-semibold flex items-center gap-2">Akaryakıt ve Güç Türü Seçimi <span class="text-red-400">*</span></label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="powertrainSelector">
+              <button class="fuel-btn active flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-high text-primary transition-all shadow-sm" data-fuel="ev" onclick="selectFuel('ev')" type="button"><span class="material-symbols-outlined text-3xl mb-1.5">bolt</span><span class="font-semibold">Elektrik (BEV)</span><span class="text-xs text-on-surface-variant mt-0.5">Sıfır yerel emisyon</span></button>
+              <button class="fuel-btn flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all shadow-sm" data-fuel="gasoline" onclick="selectFuel('gasoline')" type="button"><span class="material-symbols-outlined text-3xl mb-1.5">local_gas_station</span><span class="font-semibold">Benzin</span><span class="text-xs text-outline mt-0.5">Euro 95 / 98</span></button>
+              <button class="fuel-btn flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all shadow-sm" data-fuel="diesel" onclick="selectFuel('diesel')" type="button"><span class="material-symbols-outlined text-3xl mb-1.5">oil_barrel</span><span class="font-semibold">Dizel</span><span class="text-xs text-outline mt-0.5">Euro Diesel</span></button>
+              <button class="fuel-btn flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all shadow-sm" data-fuel="lpg" onclick="selectFuel('lpg')" type="button"><span class="material-symbols-outlined text-3xl mb-1.5">propane_tank</span><span class="font-semibold">LPG / Hibrit</span><span class="text-xs text-outline mt-0.5">Alternatif yakıt</span></button>
+            </div>
+            <input id="powertrainInput" name="powertrain" type="hidden" value="ev">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <label class="flex flex-col gap-2 text-sm font-medium">Araç Modeli<input class="input-field" id="carModel" name="carModel" placeholder="Örn: Mercedes EQE, VW Golf" required value="Mercedes-Benz EQE 350+"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Araç Plakası<input class="input-field uppercase tracking-wider" id="carPlate" name="carPlate" placeholder="Örn: 34 ECO 2024" required value="34 ECO 2024"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Araç Model Yılı<input class="input-field" id="carYear" max="2026" min="1990" name="carYear" type="number" required value="2023"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">İlk Satın Alım Fiyatı<input class="input-field" id="purchasePrice" name="purchasePrice" placeholder="Örn: 1.450.000 ₺" required value="2.850.000 ₺"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Yıllık Ortalama Mesafe<input class="input-field" id="annualMileage" name="annualMileage" placeholder="Örn: 20.000 km/yıl" required value="22.500 km"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Ortalama Yakıt / Elektrik Fiyatı<input class="input-field" id="fuelPrice" name="fuelPrice" placeholder="Örn: 45 ₺/L veya 4,50 ₺/kWh" required value="4,50 ₺/kWh"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Yıllık MTV<input class="input-field" id="annualMtv" name="annualMtv" placeholder="Örn: 25.000 ₺" required value="25.000 ₺"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Yıllık Kasko / Sigorta<input class="input-field" id="annualInsurance" name="annualInsurance" placeholder="Örn: 35.000 ₺" required value="35.000 ₺"></label>
+            <label class="flex flex-col gap-2 text-sm font-medium">Mevcut CO₂ Salımı <button class="text-secondary hover:text-secondary-fixed text-xs text-left flex items-center gap-1" onclick="autoEstimateCO2()" type="button"><span class="material-symbols-outlined text-xs">auto_awesome</span>Otomatik Tahmin</button><input class="input-field" id="co2Emission" name="co2Emission" placeholder="g/km - opsiyonel" value="0 g/km (Elektrik Doğrudan 0)"></label>
+          </div>
+          <div class="flex flex-col items-center gap-3 pt-2">
+            <button class="w-full md:w-auto min-w-[340px] px-8 py-4 rounded-xl bg-primary text-on-primary font-headline text-lg font-bold flex items-center justify-center gap-3 shadow-lg hover:bg-emerald-300 active:scale-[0.99] transition-all" type="submit">TCO Maliyet ve Karbon Emisyonunu Hesapla <span class="material-symbols-outlined text-2xl">arrow_forward</span></button>
+            <p class="text-sm text-on-surface-variant text-center max-w-lg">Hesaplama; MTV, akaryakıt/elektrik tarifeleri, bakım-onarım aralıkları ve reel piyasa amortisman katsayılarını tek ekranda karşılaştırır.</p>
+            <p class="hidden text-primary font-semibold" id="resultMessage" role="status">Verileriniz alındı. Sonuç analizi hazırlanıyor.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="w-full bg-surface-container-lowest mt-auto"><div class="w-full px-margin-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="text-center md:text-left"><strong class="text-primary font-headline text-lg">EcoDrive</strong><p class="text-sm text-outline">Kurumsal ve bireysel filolar için TCO ve karbon emisyon platformu.</p></div>    <div class="text-sm text-on-surface-variant flex gap-6"><a class="hover:text-primary" href="anasayfa.html">Ana Sayfa</a><a class="hover:text-primary" href="hesaplama.html">Hesaplama ve Maliyet</a><a class="hover:text-primary" href="hakkimizda.html">Hakkımızda</a><a class="hover:text-primary" href="kullanici.html">Kullanıcı Paneli</a><a class="hover:text-primary" href="admin.html">Admin</a></div></div></footer>
+  <style>
+    .input-field { width: 100%; box-sizing: border-box; padding: .75rem 1rem; border: 0; border-radius: .5rem; background: #222a3d; color: #dae2fd; outline: none; box-shadow: inset 0 1px 3px rgb(0 0 0 / .2); }
+    .input-field:focus { background: #2d3449; box-shadow: 0 0 0 2px #4edea3; }
+    .input-field::placeholder { color: #86948a; }
+  </style>
+  <script>
+    function applyTheme() {
+      var light = localStorage.getItem("ecodriveTheme") === "light";
+      document.documentElement.classList.toggle("dark", !light);
+      var button = document.getElementById("themeToggle");
+      if (button) {
+        button.querySelector("span").textContent = light ? "light_mode" : "dark_mode";
+        button.setAttribute("aria-label", light ? "Gece moduna geç" : "Gündüz moduna geç");
+        button.title = light ? "Gece moduna geç" : "Gündüz moduna geç";
+      }
+    }
+    function toggleTheme() {
+      localStorage.setItem("ecodriveTheme", localStorage.getItem("ecodriveTheme") === "light" ? "dark" : "light");
+      applyTheme();
+    }
+    applyTheme();
+
+    function saveVehicleAndContinue(event) {
+      event.preventDefault();
+      var vehicleData = {
+        model: document.getElementById("carModel").value,
+        plate: document.getElementById("carPlate").value,
+        year: document.getElementById("carYear").value,
+        price: document.getElementById("purchasePrice").value,
+        mileage: document.getElementById("annualMileage").value,
+        fuelPrice: document.getElementById("fuelPrice").value,
+        mtv: document.getElementById("annualMtv").value,
+        insurance: document.getElementById("annualInsurance").value,
+        co2: document.getElementById("co2Emission").value,
+        powertrain: document.getElementById("powertrainInput").value
+      };
+      sessionStorage.setItem("ecodriveVehicle", JSON.stringify(vehicleData));
+      if (localStorage.getItem("ecodriveAuthenticated") === "true") {
+        window.location.href = "hesaplama.html";
+      } else {
+        window.location.href = "kullanici-giris?next=hesaplama";
+      }
+    }
+
+    function getAdminSettings() {
+      var defaults = { prices: { ev: 4.5, gasoline: 45, diesel: 47, lpg: 25 }, co2: { ev: 0, gasoline: 148, diesel: 126, lpg: 112 } };
+      var saved = JSON.parse(localStorage.getItem("ecodriveSettings") || "{}");
+      return { prices: Object.assign({}, defaults.prices, saved.prices), co2: Object.assign({}, defaults.co2, saved.co2) };
+    }
+    function selectFuel(fuelType) {
+      document.querySelectorAll(".fuel-btn").forEach(function (button) {
+        var active = button.dataset.fuel === fuelType;
+        button.classList.toggle("bg-surface-container-high", active);
+        button.classList.toggle("text-primary", active);
+        button.classList.toggle("text-on-surface-variant", !active);
+      });
+      document.getElementById("powertrainInput").value = fuelType;
+      var settings = getAdminSettings(), estimates = { ev: settings.co2.ev + " g/km (Elektrik Doğrudan 0)", gasoline: settings.co2.gasoline + " g/km (Admin verisi)", diesel: settings.co2.diesel + " g/km (Admin verisi)", lpg: settings.co2.lpg + " g/km (Admin verisi)" };
+      var prices = { ev: settings.prices.ev + " ₺/kWh", gasoline: settings.prices.gasoline + " ₺/L", diesel: settings.prices.diesel + " ₺/L", lpg: settings.prices.lpg + " ₺/L" };
+      document.getElementById("co2Emission").value = estimates[fuelType];
+      document.getElementById("fuelPrice").value = prices[fuelType];
+    }
+
+    function autoEstimateCO2() {
+      var fuel = document.getElementById("powertrainInput").value;
+      var settings = getAdminSettings(), estimates = { ev: "0 g/km (Temiz Enerji Tahmini)", gasoline: settings.co2.gasoline + " g/km (Admin verisi)", diesel: settings.co2.diesel + " g/km (Admin verisi)", lpg: settings.co2.lpg + " g/km (Admin verisi)" };
+      var input = document.getElementById("co2Emission");
+      input.value = estimates[fuel];
+      input.classList.add("bg-surface-container-highest");
+      setTimeout(function () { input.classList.remove("bg-surface-container-highest"); }, 350);
+    }
+    (function(){var content=JSON.parse(localStorage.getItem("ecodrivePageContent")||"{}").home;if(content){document.getElementById("homeContentTitle").textContent=content.title;document.getElementById("homeContentDescription").textContent=content.description;}})();
+  </script>
+</body>
+</html>
