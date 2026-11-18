@@ -1,9 +1,10 @@
 """EcoDrive web uygulamasını yerel olarak sunar.
 
-Çalıştırma:
+Yerel çalıştırma:
     python ecodrive.py
 
-Ardından http://127.0.0.1:8000 adresini açın.
+Yerel adres: http://127.0.0.1:8000
+Render: PORT ortam değişkenini ve 0.0.0.0 adresini otomatik kullanır.
 """
 
 from __future__ import annotations
@@ -15,7 +16,11 @@ from urllib.parse import unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
+<<<<<<< HEAD
 HOST = os.environ.get("HOST", os.environ.get("ECODRIVE_HOST", "0.0.0.0"))
+=======
+HOST = os.environ.get("ECODRIVE_HOST", "0.0.0.0")
+>>>>>>> a8def8817e9a32dd15f22067297cf55c6b83b21f
 PORT = int(os.environ.get("PORT", os.environ.get("ECODRIVE_PORT", "8000")))
 
 ROUTES = {
@@ -47,7 +52,7 @@ class EcoDriveHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
-    def do_GET(self) -> None:
+    def _serve_route(self, send_body: bool) -> None:
         route = urlparse(unquote(self.path)).path
         target = ROUTES.get(route)
         if target is None:
@@ -55,7 +60,16 @@ class EcoDriveHandler(SimpleHTTPRequestHandler):
             return
 
         self.path = "/" + target
-        super().do_GET()
+        if send_body:
+            super().do_GET()
+        else:
+            super().do_HEAD()
+
+    def do_GET(self) -> None:
+        self._serve_route(send_body=True)
+
+    def do_HEAD(self) -> None:
+        self._serve_route(send_body=False)
 
     def end_headers(self) -> None:
         self.send_header("Cache-Control", "no-store")

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 # Bu proje Python standart kutuphanesi kullandigi icin harici paket gerektirmez.
+=======
+# EcoDrive uses only the Python standard library.
+>>>>>>> a8def8817e9a32dd15f22067297cf55c6b83b21f
