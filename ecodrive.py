@@ -15,8 +15,8 @@ from urllib.parse import unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
-HOST = os.environ.get("ECODRIVE_HOST", "127.0.0.1")
-PORT = int(os.environ.get("ECODRIVE_PORT", "8000"))
+HOST = os.environ.get("HOST", os.environ.get("ECODRIVE_HOST", "0.0.0.0"))
+PORT = int(os.environ.get("PORT", os.environ.get("ECODRIVE_PORT", "8000")))
 
 ROUTES = {
     "/": "anasayfa.html",
