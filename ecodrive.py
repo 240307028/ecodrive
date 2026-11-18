@@ -16,11 +16,7 @@ from urllib.parse import unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
-<<<<<<< HEAD
 HOST = os.environ.get("HOST", os.environ.get("ECODRIVE_HOST", "0.0.0.0"))
-=======
-HOST = os.environ.get("ECODRIVE_HOST", "0.0.0.0")
->>>>>>> a8def8817e9a32dd15f22067297cf55c6b83b21f
 PORT = int(os.environ.get("PORT", os.environ.get("ECODRIVE_PORT", "8000")))
 
 ROUTES = {
